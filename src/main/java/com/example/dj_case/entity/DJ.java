@@ -2,19 +2,24 @@ package com.example.dj_case.entity;
 
 import javax.persistence.*;
 
-@Entity
 public class DJ {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="DJ_id")
-    private int id;
+    @Column(name="dj_id")
+    public Integer id;
 
-    @Column(name="DJ_name")
-    private String name;
+    @Column(name="dj_name")
+    public String name;
 
-    @Column(name="DJ_age")
-    private int age;
+    @Column(name="dj_age")
+    public Integer age;
 
-    @Column(name="DJ_style")
-    private String style;
+    @Column(name="dj_style")
+    public String style;
+
+    public DJ(Integer id, String name, Integer age, String style) {
+        this.name = name;
+        this.age = age;
+        this.style = style;
+    }
 }
