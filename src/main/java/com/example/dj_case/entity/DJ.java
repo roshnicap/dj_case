@@ -19,11 +19,9 @@ public class DJ {
     public String style;
 
     public DJ() {
-        super();
     }
 
     public DJ(String name, Integer age, String style) {
-        super();
         this.name = name;
         this.age = age;
         this.style = style;
@@ -39,14 +37,11 @@ public class DJ {
                 '}';
     }
 
-    ;
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
-
         this.id = id;
     }
 

@@ -1,11 +1,11 @@
 package com.example.dj_case.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
-public class Set {
+public class DjSet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="set_id")
@@ -15,7 +15,7 @@ public class Set {
     public String name;
 
     @Column(name="set_day")
-    public Date day;
+    public LocalDate day;
 
     @Column(name="set_stage")
     public String stage;
@@ -26,17 +26,27 @@ public class Set {
     @Column(name="set_endtime")
     public LocalTime endTime;
 
-    public Set() {
-        super();
+    public DjSet() {
     }
 
-    public Set(String name, Date day, String stage, LocalTime beginTime, LocalTime endTime) {
-        super();
+    public DjSet(String name, LocalDate day, String stage, LocalTime beginTime, LocalTime endTime) {
         this.name = name;
         this.day = day;
         this.stage = stage;
         this.beginTime = beginTime;
         this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Set{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", day=" + day +
+                ", stage='" + stage + '\'' +
+                ", beginTime=" + beginTime +
+                ", endTime=" + endTime +
+                '}';
     }
 
     public Integer getId() {
@@ -55,11 +65,11 @@ public class Set {
         this.name = name;
     }
 
-    public Date getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(LocalDate day) {
         this.day = day;
     }
 
