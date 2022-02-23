@@ -25,15 +25,18 @@ public class DjCaseApplication {
         System.out.println("Hello World");
     }
 
+    DJ martin = new DJ("Martin", 25, "house" );
+
+
     @Bean
     public CommandLineRunner demo(DJRepository djRepository, DjSetRepository djSetRepository) {
         return (args) -> {
-            djRepository.save(new DJ("Martin", 25, "house" ));
+            djRepository.save(martin);
             djRepository.save(new DJ("David", 40, "disco" ));
             djRepository.save(new DJ("Nikita", 30, "hiphop"));
-            djSetRepository.save(new DjSet("House", LocalDate.of(2022,6,1),"Outside stage", LocalTime.of(17,30), LocalTime.of(20,30)));
-            djSetRepository.save(new DjSet("Techno", LocalDate.of(2022,6,2),"Inside stage", LocalTime.of(15,0), LocalTime.of(19,30)));
-            djSetRepository.save(new DjSet("Hard", LocalDate.of(2022,6,3),"Rooftop stage", LocalTime.of(16,0), LocalTime.of(18,30)));
+            djSetRepository.save(new DjSet("House", LocalDate.of(2022,6,1),"Outside stage", LocalTime.of(17,30), LocalTime.of(20,30),martin));
+            djSetRepository.save(new DjSet("Techno", LocalDate.of(2022,6,2),"Inside stage", LocalTime.of(15,0), LocalTime.of(19,30),martin));
+            djSetRepository.save(new DjSet("Hard", LocalDate.of(2022,6,3),"Rooftop stage", LocalTime.of(16,0), LocalTime.of(18,30),martin));
 
             //fetch all DJs
             log.info("all DJs found with findAll():");

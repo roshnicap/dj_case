@@ -2,12 +2,13 @@ package com.example.dj_case.entity;
 
 import javax.persistence.*;
 
+@Table(name = "dj")
 @Entity
 public class DJ {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dj_id")
-    public Integer id;
+    private Long id;
 
     @Column(name = "dj_name")
     public String name;
@@ -37,11 +38,11 @@ public class DJ {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

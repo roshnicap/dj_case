@@ -1,15 +1,17 @@
 package com.example.dj_case.entity;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
+@Table(name = "set")
 @Entity
 public class DjSet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="set_id")
-    public Integer id;
+    private Long id;
 
     @Column(name="set_name")
     public String name;
@@ -26,15 +28,20 @@ public class DjSet {
     @Column(name="set_endtime")
     public LocalTime endTime;
 
+    @ManyToOne()
+    @JoinColumn(name = "fk_dj_id")
+    public DJ dj;
+
     public DjSet() {
     }
 
-    public DjSet(String name, LocalDate day, String stage, LocalTime beginTime, LocalTime endTime) {
+    public DjSet(String name, LocalDate day, String stage, LocalTime beginTime, LocalTime endTime, DJ dj) {
         this.name = name;
         this.day = day;
         this.stage = stage;
         this.beginTime = beginTime;
         this.endTime = endTime;
+        this.dj = dj;
     }
 
     @Override
@@ -49,11 +56,11 @@ public class DjSet {
                 '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -95,5 +102,13 @@ public class DjSet {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+
+    public DJ getDj() {
+        return dj;
+    }
+
+    public void setDj(DJ dj) {
+        this.dj = dj;
     }
 }
