@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -36,27 +37,45 @@ class DJControllerTest {
     }
 
     @Test
-    void getId() throws Exception {
-        mockMvc.perform(get("/dj/get/{id}/",1))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
+    void getId() {
+        try {
+            mockMvc.perform(get("/dj/get/{id}/",1))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    void create() throws Exception {
+    void create() {
         DJ testDj = new DJ("Garrix", 25, "house" );
 
-        mockMvc.perform(post("/dj/", 42L)
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(testDj)))
-                .andExpect(status().isCreated());
+        try {
+            mockMvc.perform(post("/dj/", 42L)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .content(objectMapper.writeValueAsString(testDj)))
+                    .andExpect(status().isCreated());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
     void delete() {
         try {
-            mockMvc.perform(MockMvcRequestBuilders.delete("/dj/{id}/", 1))
-                        .andExpect(status().isAccepted());
+            mockMvc.perform(MockMvcRequestBuilders.delete("/dj/delete/{id}/", 1)
+                            .contentType(MediaType.APPLICATION_JSON_VALUE))
+                            .andExpect(status().isOk());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/dj/delete/{id}/", 10)
+                            .contentType(MediaType.APPLICATION_JSON_VALUE))
+                    .andExpect(status().isBadRequest());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,5 +83,17 @@ class DJControllerTest {
 
     @Test
     void update() {
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.put("/dj/update/{id}",1)
+                    .content(objectMapper.writeValueAsString(new DJ("Garrix", 25, "house" )))
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+                    .andExpect(status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Garrix"))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(25))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.style").value("house"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
